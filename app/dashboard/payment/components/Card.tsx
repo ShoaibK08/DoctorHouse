@@ -104,7 +104,7 @@ const CardPayment = () => {
                 <Card sx={{
                     mb: 3,
                     borderRadius: 3,
-                    backgroundColor: '#35558A',
+                    background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                     color: '#FFFFFF',
                     overflow: 'hidden'
                 }}>
@@ -112,15 +112,17 @@ const CardPayment = () => {
                         <Box display="flex" justifyContent="space-between" alignItems="center">
                             <Typography variant="h6" sx={{
                                 fontWeight: 600,
-                                fontSize: '18px',
-                                fontFamily: 'Poppins'
+                                fontSize: '15px',
+                                fontFamily: 'Poppins',
+                                color: '#FFFFFF'
                             }}>
                                 Total Subscription
                             </Typography>
                             <Typography variant="h6" sx={{
                                 fontWeight: 600,
-                                fontSize: '20px',
-                                fontFamily: 'Poppins'
+                                fontSize: '24px',
+                                fontFamily: 'Poppins',
+                                color: '#FFFFFF'
                             }}>
                                 $1.99
                             </Typography>
@@ -224,10 +226,10 @@ const CardPayment = () => {
                 </Card>
 
                 {/* Input Fields */}
-                <Box sx={{ mb: 3 }}>
+                <Box sx={{ mb: 10 }}>
                     <Typography variant="body1" sx={{
-                        fontWeight: 500,
-                        fontSize: '16px',
+                        fontWeight: 600,
+                        fontSize: '14px',
                         color: '#0E0D39',
                         mb: 1,
                         fontFamily: 'Poppins'
@@ -244,6 +246,12 @@ const CardPayment = () => {
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: 2,
                                 fontFamily: 'Poppins'
+                            },
+                            '& .MuiOutlinedInput-input::placeholder': {
+                                fontSize: '14px',
+                                fontWeight: 400,
+                                color: '#8F8EA4',
+                                opacity: 1
                             }
                         }}
                     />
@@ -251,8 +259,8 @@ const CardPayment = () => {
                     <Box display="flex" gap={2}>
                         <Box flex={1}>
                             <Typography variant="body1" sx={{
-                                fontWeight: 500,
-                                fontSize: '16px',
+                                fontWeight: 600,
+                                fontSize: '14px',
                                 color: '#0E0D39',
                                 mb: 1,
                                 fontFamily: 'Poppins'
@@ -268,14 +276,20 @@ const CardPayment = () => {
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
                                         fontFamily: 'Poppins'
+                                    },
+                                    '& .MuiOutlinedInput-input::placeholder': {
+                                        fontSize: '14px',
+                                        fontWeight: 400,
+                                        color: '#8F8EA4',
+                                        opacity: 1
                                     }
                                 }}
                             />
                         </Box>
                         <Box flex={1}>
                             <Typography variant="body1" sx={{
-                                fontWeight: 500,
-                                fontSize: '16px',
+                                fontWeight: 600,
+                                fontSize: '14px',
                                 color: '#0E0D39',
                                 mb: 1,
                                 fontFamily: 'Poppins'
@@ -291,6 +305,12 @@ const CardPayment = () => {
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
                                         fontFamily: 'Poppins'
+                                    },
+                                    '& .MuiOutlinedInput-input::placeholder': {
+                                        fontSize: '14px',
+                                        fontWeight: 400,
+                                        color: '#8F8EA4',
+                                        opacity: 1
                                     }
                                 }}
                             />
@@ -305,7 +325,7 @@ const CardPayment = () => {
                     onClick={handleSubmit}
                     disabled={isProcessing}
                     sx={{
-                        background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
+                        background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                         color: '#FFFFFF',
                         fontFamily: 'Poppins',
                         py: 1.8,
@@ -314,7 +334,7 @@ const CardPayment = () => {
                         fontSize: '16px',
                         textTransform: 'none',
                         '&:hover': {
-                            background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
+                             background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                         },
                     }}
                 >
