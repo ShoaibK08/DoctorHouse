@@ -133,6 +133,7 @@ const Payment = () => {
                         >
                             <FormControlLabel
                                 value="daily"
+                                labelPlacement="start"
                                 control={<Radio sx={{
                                     color: '#8F8EA4',
                                     '&.Mui-checked': {
@@ -155,12 +156,14 @@ const Payment = () => {
                                     py: 2,
                                     width: '100%',
                                     borderBottom: '1.2px dashed #35558A',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
                                 }}
                             />
 
-
                             <FormControlLabel
                                 value="voucher"
+                                labelPlacement="start"
                                 control={<Radio sx={{
                                     color: '#8F8EA4',
                                     '&.Mui-checked': {
@@ -182,6 +185,8 @@ const Payment = () => {
                                     px: 3,
                                     py: 2,
                                     width: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
                                 }}
                             />
                         </RadioGroup>
