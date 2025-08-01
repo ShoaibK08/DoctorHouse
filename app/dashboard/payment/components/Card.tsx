@@ -69,7 +69,7 @@ const CardPayment = () => {
     return (
         <Box sx={{
             minHeight: '100vh',
-            backgroundColor: '#f8f9fa',
+            backgroundColor: theme.palette.background.default,
             position: 'relative',
             zIndex: 1,
             width: '100%',
@@ -94,7 +94,7 @@ const CardPayment = () => {
             {/* Content */}
             <Container fixed sx={{
                 pt: 3,
-                backgroundColor: '#FFFFFF',
+                backgroundColor: theme.palette.background.paper,
                 position: 'relative',
                 zIndex: 2,
                 pb: 4,
@@ -230,7 +230,7 @@ const CardPayment = () => {
                     <Typography variant="body1" sx={{
                         fontWeight: 600,
                         fontSize: '14px',
-                        color: '#0E0D39',
+                        color: theme.palette.text.primary,
                         mb: 1,
                         fontFamily: 'Poppins'
                     }}>
@@ -245,12 +245,25 @@ const CardPayment = () => {
                             mb: 2,
                             '& .MuiOutlinedInput-root': {
                                 borderRadius: 2,
-                                fontFamily: 'Poppins'
+                                fontFamily: 'Poppins',
+                                backgroundColor: theme.palette.background.paper,
+                                '& fieldset': {
+                                    borderColor: theme.palette.divider,
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: theme.palette.primary.main,
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: theme.palette.primary.main,
+                                },
+                            },
+                            '& .MuiOutlinedInput-input': {
+                                color: theme.palette.text.primary,
                             },
                             '& .MuiOutlinedInput-input::placeholder': {
                                 fontSize: '14px',
                                 fontWeight: 400,
-                                color: '#8F8EA4',
+                                color: theme.palette.text.secondary,
                                 opacity: 1
                             }
                         }}
@@ -261,7 +274,7 @@ const CardPayment = () => {
                             <Typography variant="body1" sx={{
                                 fontWeight: 600,
                                 fontSize: '14px',
-                                color: '#0E0D39',
+                                color: theme.palette.text.primary,
                                 mb: 1,
                                 fontFamily: 'Poppins'
                             }}>
@@ -275,12 +288,25 @@ const CardPayment = () => {
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
-                                        fontFamily: 'Poppins'
+                                        fontFamily: 'Poppins',
+                                        backgroundColor: theme.palette.background.paper,
+                                        '& fieldset': {
+                                            borderColor: theme.palette.divider,
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: theme.palette.primary.main,
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: theme.palette.primary.main,
+                                        },
+                                    },
+                                    '& .MuiOutlinedInput-input': {
+                                        color: theme.palette.text.primary,
                                     },
                                     '& .MuiOutlinedInput-input::placeholder': {
                                         fontSize: '14px',
                                         fontWeight: 400,
-                                        color: '#8F8EA4',
+                                        color: theme.palette.text.secondary,
                                         opacity: 1
                                     }
                                 }}
@@ -290,7 +316,7 @@ const CardPayment = () => {
                             <Typography variant="body1" sx={{
                                 fontWeight: 600,
                                 fontSize: '14px',
-                                color: '#0E0D39',
+                                color: theme.palette.text.primary,
                                 mb: 1,
                                 fontFamily: 'Poppins'
                             }}>
@@ -304,12 +330,25 @@ const CardPayment = () => {
                                 sx={{
                                     '& .MuiOutlinedInput-root': {
                                         borderRadius: 2,
-                                        fontFamily: 'Poppins'
+                                        fontFamily: 'Poppins',
+                                        backgroundColor: theme.palette.background.paper,
+                                        '& fieldset': {
+                                            borderColor: theme.palette.divider,
+                                        },
+                                        '&:hover fieldset': {
+                                            borderColor: theme.palette.primary.main,
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: theme.palette.primary.main,
+                                        },
+                                    },
+                                    '& .MuiOutlinedInput-input': {
+                                        color: theme.palette.text.primary,
                                     },
                                     '& .MuiOutlinedInput-input::placeholder': {
                                         fontSize: '14px',
                                         fontWeight: 400,
-                                        color: '#8F8EA4',
+                                        color: theme.palette.text.secondary,
                                         opacity: 1
                                     }
                                 }}

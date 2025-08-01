@@ -12,7 +12,7 @@ export const ToggleBtn = () => {
             <MaterialUISwitch
                 onClick={colorMode.toggleColorMode}
                 sx={{ m: 1 }}
-                checked={theme.palette.mode === 'dark' ? false : true}
+                checked={theme.palette.mode === 'dark' ? true: false}
             />
         </>
     )

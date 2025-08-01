@@ -87,7 +87,7 @@ const Payment = () => {
     return (
         <Box sx={{
             minHeight: '100vh',
-            backgroundColor: '#f8f9fa',
+            backgroundColor: theme.palette.background.default,
             position: 'relative',
             zIndex: 1,
             width: '100%',
@@ -112,7 +112,7 @@ const Payment = () => {
             {/* Content */}
             <Container fixed sx={{
                 pt: 3,
-                backgroundColor: '#FFFFFF',
+                backgroundColor: theme.palette.background.paper,
                 position: 'relative',
                 zIndex: 2,
                 pb: 4,
@@ -122,8 +122,8 @@ const Payment = () => {
                 <Card sx={{
                     mb: 3,
                     borderRadius: 3,
-                    backgroundColor: '#FFFFFF',
-                    border: '1px solid #35558A',
+                    backgroundColor: theme.palette.background.paper,
+                    border: `1px solid ${theme.palette.primary.main}`,
                     overflow: 'hidden'
                 }}>
                     <CardContent sx={{ p: 0 }}>
@@ -135,17 +135,17 @@ const Payment = () => {
                                 value="daily"
                                 labelPlacement="start"
                                 control={<Radio sx={{
-                                    color: '#8F8EA4',
+                                    color: theme.palette.text.secondary,
                                     '&.Mui-checked': {
-                                        color: '#1976d2',
+                                        color: theme.palette.primary.main,
                                     },
                                 }} />}
                                 label={
                                     <Typography variant="body1">
-                                        <Box component="span" sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Poppins',color:'#0E0D39' }}>
+                                        <Box component="span" sx={{ fontWeight: 600, fontSize: '20px', fontFamily: 'Poppins', color: theme.palette.text.primary }}>
                                             $1.99
                                         </Box>{' '}
-                                        <Box component="span" sx={{ fontWeight: 500, fontSize: '18px', fontFamily: 'Poppins',color:'#0E0D39' }}>
+                                        <Box component="span" sx={{ fontWeight: 500, fontSize: '18px', fontFamily: 'Poppins', color: theme.palette.text.primary }}>
                                             for a day
                                         </Box>
                                     </Typography>
@@ -155,7 +155,7 @@ const Payment = () => {
                                     px: 3,
                                     py: 2,
                                     width: '100%',
-                                    borderBottom: '1.2px dashed #35558A',
+                                    borderBottom: `1.2px dashed ${theme.palette.primary.main}`,
                                     display: 'flex',
                                     justifyContent: 'space-between',
                                 }}
@@ -165,9 +165,9 @@ const Payment = () => {
                                 value="voucher"
                                 labelPlacement="start"
                                 control={<Radio sx={{
-                                    color: '#8F8EA4',
+                                    color: theme.palette.text.secondary,
                                     '&.Mui-checked': {
-                                        color: '#1976d2',
+                                        color: theme.palette.primary.main,
                                     },
                                 }} />}
                                 label={
@@ -175,7 +175,7 @@ const Payment = () => {
                                         fontWeight: 500,
                                         fontSize: '18px',
                                         fontFamily: 'Poppins',
-                                        color: '#0E0D39'
+                                        color: theme.palette.text.primary
                                     }}>
                                         Subscribe with a voucher
                                     </Typography>
@@ -222,7 +222,7 @@ const Payment = () => {
                         mb: 3,
                         fontFamily: 'Poppins',
                         fontWeight: 600,
-                        color: '#0E0D39',
+                        color: theme.palette.text.primary,
                         fontSize: '20px',
                         textAlign: 'center'
                     }}>
@@ -258,7 +258,7 @@ const Payment = () => {
                                     <Box>
                                         <Typography variant="body1" sx={{
                                             fontWeight: 500,
-                                            color: '#0E0D39',
+                                            color: theme.palette.text.primary,
                                             fontSize: '18px',
                                             mb: 0.4,
                                             fontFamily: 'Poppins'
@@ -269,7 +269,7 @@ const Payment = () => {
                                         {/* Start Date */}
                                         <Box mb={0.8}>
                                             <Typography variant="caption" sx={{
-                                                color: '#494869',
+                                                color: theme.palette.text.secondary,
                                                 fontSize: '12px',
                                                 fontWeight: 500,
                                                 display: 'block',
@@ -279,7 +279,7 @@ const Payment = () => {
                                                 Start Date
                                             </Typography>
                                             <Typography variant="caption" sx={{
-                                                color: '#79789E',
+                                                color: theme.palette.text.secondary,
                                                 fontSize: '12px',
                                                 display: 'block',
                                                 fontWeight: 500,
@@ -295,7 +295,7 @@ const Payment = () => {
                                 <Box textAlign="right">
                                     <Typography variant="h6" sx={{
                                         fontWeight: 600,
-                                        color: '#35558A',
+                                        color: theme.palette.primary.main,
                                         fontSize: '20px',
                                         mb: 1,
                                         fontFamily: 'Poppins'
@@ -306,7 +306,7 @@ const Payment = () => {
                                     {/* End Date */}
                                     <Box>
                                         <Typography variant="caption" sx={{
-                                            color: '#494869',
+                                            color: theme.palette.text.secondary,
                                             fontSize: '12px',
                                             fontWeight: 500,
                                             display: 'block',
@@ -316,7 +316,7 @@ const Payment = () => {
                                             End Date
                                         </Typography>
                                         <Typography variant="caption" sx={{
-                                            color: '#79789E',
+                                            color: theme.palette.text.secondary,
                                             fontSize: '12px',
                                             display: 'block',
                                             fontWeight: 500,
@@ -331,7 +331,7 @@ const Payment = () => {
                             {/* Dotted divider line between items */}
                             {index < paymentHistory.length - 1 && (
                                 <Box sx={{
-                                    borderBottom: '1px dashed #79789E',
+                                    borderBottom: `1px dashed ${theme.palette.divider}`,
                                     mx: 0,
                                     mb: 1
                                 }} />

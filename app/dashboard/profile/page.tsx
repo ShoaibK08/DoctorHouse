@@ -7,10 +7,13 @@ import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import languageStore from '@/zustand/languageStore';
 import { useRouter } from 'next/navigation';
 import { whiteIconButtonStyle } from '@/themes/styles';
+import { ColorModeContext } from '@/context/theme.context';
+import { ToggleBtn } from '@/components/ThemeToggleBtn';
 
 const ProfilePage = () => {
     const theme = useTheme();
     const mode = theme.palette.mode;
+    const colorMode = React.useContext(ColorModeContext);
     // 
     const { getLabels } = languageStore()
     const Labels = getLabels('Menu') as any
@@ -97,7 +100,7 @@ const ProfilePage = () => {
                         url="/dashboard/profile/settings"
                         isLogout={false}
                         isSwitch={true}
-                        switchComp={<Switch />}
+                        switchComp={<ToggleBtn />}
                     />
                     <ListItem
                         icon={<SecurityIcon fontSize="small" />}
