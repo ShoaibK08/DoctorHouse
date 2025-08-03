@@ -54,7 +54,7 @@ const SplashScreen = () => {
             <Container fixed >
                 <Box sx={splashContainer(mode)}>
                     <Box>
-                        <Box sx={{ width: "205px", mx: 'auto' }}>
+                        <Box sx={{ width: "205px" }}>
                             <Image src="/logo.png" alt='logo' width={300} height={50} />
                         </Box>
                         <br />
