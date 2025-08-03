@@ -23,6 +23,8 @@ const CardPayment = () => {
     const router = useRouter()
     const { getLabels } = languageStore()
     const Labels = getLabels('Menu') as any
+    const PaymentsLabels = getLabels('Payments') as any
+    const CommonLabels = getLabels('Common') as any
 
     const [cardData, setCardData] = useState({
         cardNumber: '',
@@ -84,7 +86,7 @@ const CardPayment = () => {
                         </IconButton>
                         <Box width="100%" textAlign="center">
                             <Typography variant="body1" color="#fff" sx={lineClampStyle(1)}>
-                                <b>Payment</b>
+                                <b>{Labels?.lbl_payment || 'Payment'}</b>
                             </Typography>
                         </Box>
                     </Box>
@@ -116,7 +118,7 @@ const CardPayment = () => {
                                 fontFamily: 'Poppins',
                                 color: '#FFFFFF'
                             }}>
-                                Total Subscription
+                                {PaymentsLabels?.lbl_total_subval || 'Total Subscription'}
                             </Typography>
                             <Typography variant="h6" sx={{
                                 fontWeight: 600,
@@ -196,7 +198,7 @@ const CardPayment = () => {
                                     display: 'block',
                                     mb: 0.5
                                 }}>
-                                    Cardholder Name
+                                    {PaymentsLabels?.lbl_cardholder_name || 'Cardholder Name'}
                                 </Typography>
                                 <Typography variant="body1" sx={{
                                     fontWeight: 500,
@@ -212,7 +214,7 @@ const CardPayment = () => {
                                     display: 'block',
                                     mb: 0.5
                                 }}>
-                                    Expiry Date
+                                    {PaymentsLabels?.lbl_expiry_date || 'Expiry Date'}
                                 </Typography>
                                 <Typography variant="body1" sx={{
                                     fontWeight: 500,
@@ -234,11 +236,11 @@ const CardPayment = () => {
                         mb: 1,
                         fontFamily: 'Poppins'
                     }}>
-                        Credit card
+                        {PaymentsLabels?.lbl_creditcard || 'Credit card'}
                     </Typography>
                     <TextField
                         fullWidth
-                        placeholder="Enter"
+                        placeholder={PaymentsLabels?.msg_credit_card || 'Enter'}
                         value={cardData.cardNumber}
                         onChange={(e) => handleCardNumberChange(e.target.value)}
                         sx={{
@@ -278,11 +280,11 @@ const CardPayment = () => {
                                 mb: 1,
                                 fontFamily: 'Poppins'
                             }}>
-                                CVV
+                                {PaymentsLabels?.lbl_cvv || 'CVV'}
                             </Typography>
                             <TextField
                                 fullWidth
-                                placeholder="Enter"
+                                placeholder={PaymentsLabels?.msg_cvv || 'Enter'}
                                 value={cardData.cvv}
                                 onChange={(e) => handleInputChange('cvv', e.target.value)}
                                 sx={{
@@ -320,11 +322,11 @@ const CardPayment = () => {
                                 mb: 1,
                                 fontFamily: 'Poppins'
                             }}>
-                                MM/YY
+                                {PaymentsLabels?.lbl_monthyear || 'MM/YY'}
                             </Typography>
                             <TextField
                                 fullWidth
-                                placeholder="Enter"
+                                placeholder={PaymentsLabels?.msg_exp_date || 'Enter'}
                                 value={cardData.expiryDate}
                                 onChange={(e) => handleExpiryChange(e.target.value)}
                                 sx={{
@@ -377,7 +379,7 @@ const CardPayment = () => {
                         },
                     }}
                 >
-                    {isProcessing ? 'Processing...' : 'Credit Card'}
+                    {isProcessing ? (CommonLabels?.lbl_submit || 'Processing...') : (PaymentsLabels?.btn_creditcard || 'Credit Card')}
                 </Button>
             </Container>
         </Box>

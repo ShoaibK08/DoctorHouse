@@ -27,6 +27,9 @@ const Payment = () => {
     const router = useRouter()
     const { getLabels } = languageStore()
     const Labels = getLabels('Menu') as any
+    const PaymentHistoryLabels = getLabels('Payment_History') as any
+    const PaymentsLabels = getLabels('Payments') as any
+    const CommonLabels = getLabels('Common') as any
 
     const [paymentOption, setPaymentOption] = useState('daily');
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,7 +55,7 @@ const Payment = () => {
     const paymentHistory = [
         {
             id: 1,
-            type: 'Day',
+            type: PaymentHistoryLabels?.lbl_day || 'Day',
             startDate: '12/07/2023',
             startTime: '08:02 pm',
             endDate: '15/07/2023',
@@ -61,7 +64,7 @@ const Payment = () => {
         },
         {
             id: 2,
-            type: 'Day',
+            type: PaymentHistoryLabels?.lbl_day || 'Day',
             startDate: '08/07/2023',
             startTime: '08:02 pm',
             endDate: '11/07/2023',
@@ -70,7 +73,7 @@ const Payment = () => {
         },
         {
             id: 3,
-            type: 'Day',
+            type: PaymentHistoryLabels?.lbl_day || 'Day',
             startDate: '04/07/2023',
             startTime: '08:02 pm',
             endDate: '07/07/2023',
@@ -146,7 +149,7 @@ const Payment = () => {
                                             $1.99
                                         </Box>{' '}
                                         <Box component="span" sx={{ fontWeight: 500, fontSize: '18px', fontFamily: 'Poppins', color: theme.palette.text.primary }}>
-                                            for a day
+                                            {PaymentHistoryLabels?.lbl_pmt_day || 'for a day'}
                                         </Box>
                                     </Typography>
                                 }
@@ -177,7 +180,7 @@ const Payment = () => {
                                         fontFamily: 'Poppins',
                                         color: theme.palette.text.primary
                                     }}>
-                                        Subscribe with a voucher
+                                        {PaymentsLabels?.lbl_couponcode || 'Subscribe with a voucher'}
                                     </Typography>
                                 }
                                 sx={{
@@ -213,7 +216,7 @@ const Payment = () => {
                         },
                     }}
                 >
-                    {isSubmitting ? 'Processing...' : 'Submit'}
+                    {isSubmitting ? (CommonLabels?.lbl_submit || 'Processing...') : (CommonLabels?.lbl_submit || 'Submit')}
                 </Button>
 
                 {/* Payment History */}
@@ -226,7 +229,7 @@ const Payment = () => {
                         fontSize: '20px',
                         textAlign: 'center'
                     }}>
-                        Payment History
+                        {PaymentHistoryLabels?.lbl_payment_history || 'Payment History'}
                     </Typography>
 
                     {paymentHistory.map((payment, index) => (
@@ -276,7 +279,7 @@ const Payment = () => {
                                                 lineHeight: 1.2,
                                                 fontFamily: 'Poppins'
                                             }}>
-                                                Start Date
+                                                {PaymentHistoryLabels?.lbl_start_date || 'Start Date'}
                                             </Typography>
                                             <Typography variant="caption" sx={{
                                                 color: theme.palette.text.secondary,
@@ -313,7 +316,7 @@ const Payment = () => {
                                             lineHeight: 1.2,
                                             fontFamily: 'Poppins'
                                         }}>
-                                            End Date
+                                            {PaymentHistoryLabels?.lbl_end_date || 'End Date'}
                                         </Typography>
                                         <Typography variant="caption" sx={{
                                             color: theme.palette.text.secondary,
