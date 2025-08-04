@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Box, Container, useTheme, IconButton, Typography, Card, CardContent, Avatar, Rating, Button } from '@mui/material'
-import { lineClampStyle, whiteIconButtonStyle } from '@/themes/styles';
+import { lineClampStyle, profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
@@ -32,13 +32,18 @@ const Contacts = () => {
 
     return (
         <>
-            <Box sx={{ minHeight: '100vh' }}>
+            <Box sx={{ minHeight: '100vh', backgroundColor: theme.palette.background.default }}>
                 {/* Header */}
-                <Box sx={topContainerStyle(mode)}>
+                <Box sx={profileTopContainerStyle(mode)}>
                     <Container fixed>
-                        <IconButton onClick={() => router.push("/dashboard/profile")} >
-                            <KeyboardArrowLeftIcon sx={{ color: "#fff" }} />
-                        </IconButton>
+                        <Box display="flex" alignItems="center" gap='10px' justifyContent="flex-start">
+                            <IconButton onClick={() => router.push("/dashboard/profile")} >
+                                <KeyboardArrowLeftIcon sx={{ color: "#fff" }} />
+                            </IconButton>
+                            <Typography variant="body1" color="#fff" sx={{ ...lineClampStyle(1), fontWeight: 500 }}>
+                                {Labels?.lbl_contacts || 'Contacts'}
+                            </Typography>
+                        </Box>
                     </Container>
                 </Box>
 
@@ -59,7 +64,7 @@ const Contacts = () => {
                             3.5
                         </Typography>
                     </Box>
-                    
+
                     {/* Review Button */}
                     <Button
                         variant="contained"
@@ -68,33 +73,43 @@ const Contacts = () => {
                         sx={{
                             mt: 2,
                             mb: 3,
-                            background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
-                            color: '#FFFFFF',
+                            background: '#E7EAEE',
+                            color: '#494869',
                             fontFamily: 'Poppins',
                             py: 1.5,
                             borderRadius: 3,
                             fontWeight: 500,
-                            fontSize: '14px',
+                            fontSize: '16px',
                             textTransform: 'none',
                             maxWidth: '300px',
+                            transition: 'all 0.3s ease', // ✅ smooth transition
                             '&:hover': {
                                 background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
+                                color: '#FFFFFF',
                             },
                         }}
                     >
                         Insert a review (max 500 chars)
                     </Button>
+
                 </Box>
 
                 {/* Content */}
-                <Container fixed>
+                <Container fixed sx={{
+                    pt: 3,
+                    backgroundColor: theme.palette.background.paper,
+                    position: 'relative',
+                    zIndex: 2,
+                    pb: 4,
+                    px: 2
+                }}>
                     {/* Contact Details Section */}
                     <Box sx={{ mb: 4 }}>
                         <Typography variant="h6" sx={{
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: 'text.primary',
+                            color: '#0E0D39',
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
@@ -113,7 +128,7 @@ const Contacts = () => {
                                 width: 40,
                                 height: 40,
                                 borderRadius: '50%',
-                                backgroundColor: '#3B82F6',
+                                background:' linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -123,7 +138,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#0E0D39',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -143,7 +158,7 @@ const Contacts = () => {
                                 width: 40,
                                 height: 40,
                                 borderRadius: '50%',
-                                backgroundColor: '#3B82F6',
+                                background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -153,7 +168,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#0E0D39',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -173,7 +188,7 @@ const Contacts = () => {
                                 width: 40,
                                 height: 40,
                                 borderRadius: '50%',
-                                backgroundColor: '#3B82F6',
+                                background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -183,7 +198,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#35558A',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -195,7 +210,7 @@ const Contacts = () => {
                         <Box sx={{
                             width: '100%',
                             height: '1px',
-                            border: mode === 'light' ? '1px dashed #8F8EA4' : '1px dashed #4B5563',
+                            border: '1px dashed #8F8EA4',
                             mb: 3,
                             opacity: 1
                         }} />
@@ -207,143 +222,182 @@ const Contacts = () => {
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: 'text.primary',
+                            color: theme.palette.text.primary,
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
                             Other Information
                         </Typography>
 
-                        {/* Business Card Container - Simple Design */}
+                        {/* Business Card Container - Updated Layout */}
                         <Box sx={{
-                            width: '382px',
-                            height: '441.27px',
-                            borderRadius: '20px',
-                            border: mode === 'light' ? '1px solid #ADD8E6' : '1px solid #4B5563',
-                            backgroundColor: mode === 'light' ? '#fff' : 'background.paper',
-                            overflow: 'hidden',
+                            width: '100%',
+                            maxWidth: '382px',
+                            position: 'relative',
                             mb: 3
                         }}>
-                            {/* Business Card Image */}
+                            {/* Blue Header Card - Only top portion */}
                             <Box sx={{
                                 width: '100%',
-                                height: '160px',
-                                backgroundImage: 'url(/assets/businessCard.png)',
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                backgroundRepeat: 'no-repeat'
-                            }} />
-
-                            {/* Details List */}
-                            <Box sx={{
-                                padding: '20px',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                gap: '15px'
+                                height: '120px',
+                                background: 'linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)',
+                                borderRadius: '16px 16px 0 0',
+                                position: 'relative',
+                                boxShadow: '0 4px 16px rgba(74, 144, 226, 0.2)',
                             }}>
+                                {/* Business Card Image - Positioned in blue section */}
                                 <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    position: 'absolute',
+                                    top: '20px',
+                                    left: '50%',
+                                    transform: 'translateX(-50%)',
+                                    width: '200px',
+                                    height: '120px',
+                                    zIndex: 10,
+                                    '& img': {
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        borderRadius: '8px',
+                                        
+                                    }
                                 }}>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'normal',
-                                        fontSize: '1em'
-                                    }}>
-                                        Name:
-                                    </Typography>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'bold',
-                                        fontSize: '1em'
-                                    }}>
-                                        John Doe
-                                    </Typography>
+                                    <img src="/assets/businessCard.png" alt="Business Card" />
                                 </Box>
+                            </Box>
 
+                            {/* White Details Card - Bottom portion */}
+                            <Box sx={{
+                                backgroundColor: '#FFFFFF',
+                                borderRadius: '16px 16px 16px 16px',
+                                padding: '80px 24px 24px 24px', // Extra top padding for card overlap
+                                border: '1px solid #C6C6CE',
+                                marginTop: '-40px', // Overlap to show rounded corners on top
+                            }}>
+                                {/* Details List */}
                                 <Box sx={{
                                     display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    flexDirection: 'column',
+                                    gap: '16px'
                                 }}>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'normal',
-                                        fontSize: '1em'
+                                    <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        paddingBottom: '8px'
                                     }}>
-                                        Specialty:
-                                    </Typography>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'bold',
-                                        fontSize: '1em'
-                                    }}>
-                                        Nephrology
-                                    </Typography>
-                                </Box>
+                                        <Typography sx={{
+                                            color: '#494869',
+                                            fontWeight: 500,
+                                            fontSize: '14px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Name:
+                                        </Typography>
+                                        <Typography sx={{
+                                            color: '#0E0D39',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            John Doe
+                                        </Typography>
+                                    </Box>
 
-                                <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'normal',
-                                        fontSize: '1em'
+                                    <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        paddingBottom: '8px'
                                     }}>
-                                        Language:
-                                    </Typography>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'bold',
-                                        fontSize: '1em'
-                                    }}>
-                                        Portuguese
-                                    </Typography>
-                                </Box>
+                                        <Typography sx={{
+                                            color: '#494869',
+                                            fontWeight: 500,
+                                            fontSize: '14px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Specialty:
+                                        </Typography>
+                                        <Typography sx={{
+                                            color: '#0E0D39',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Nephrology
+                                        </Typography>
+                                    </Box>
 
-                                <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'normal',
-                                        fontSize: '1em'
+                                    <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        paddingBottom: '8px'
                                     }}>
-                                        Price from:
-                                    </Typography>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'bold',
-                                        fontSize: '1em'
-                                    }}>
-                                        989898.0
-                                    </Typography>
-                                </Box>
+                                        <Typography sx={{
+                                            color: '#494869',
+                                            fontWeight: 500,
+                                            fontSize: '14px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Language:
+                                        </Typography>
+                                        <Typography sx={{
+                                            color: '#0E0D39',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Portuguese
+                                        </Typography>
+                                    </Box>
 
-                                <Box sx={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'normal',
-                                        fontSize: '1em'
+                                    <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        paddingBottom: '8px'
                                     }}>
-                                        Price to:
-                                    </Typography>
-                                    <Typography sx={{
-                                        color: 'text.primary',
-                                        fontWeight: 'bold',
-                                        fontSize: '1em'
+                                        <Typography sx={{
+                                            color: '#494869',
+                                            fontWeight: 500,
+                                            fontSize: '14px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Price from:
+                                        </Typography>
+                                        <Typography sx={{
+                                            color: '#0E0D39',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            989898.0
+                                        </Typography>
+                                    </Box>
+
+                                    <Box sx={{
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
                                     }}>
-                                        Null
-                                    </Typography>
+                                        <Typography sx={{
+                                            color: '#494869',
+                                            fontWeight: 500,
+                                            fontSize: '14px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Price to:
+                                        </Typography>
+                                        <Typography sx={{
+                                            color: '#0E0D39',
+                                            fontWeight: 500,
+                                            fontSize: '15px',
+                                            fontFamily: 'Poppins'
+                                        }}>
+                                            Null
+                                        </Typography>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
@@ -362,11 +416,3 @@ const Contacts = () => {
 }
 
 export default Contacts
-
-const topContainerStyle = (mode: string) => {
-    return {
-        background: mode === "light" ? "linear-gradient(to right, #35558a, #3487c7)" : "linear-gradient(to right, #35558a, #3487c7)",
-        pt: '20px',
-        pb: '40px'
-    }
-}
