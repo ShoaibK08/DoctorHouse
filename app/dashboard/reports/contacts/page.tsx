@@ -1,13 +1,14 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Container, useTheme, IconButton, Typography, Card, CardContent, Avatar, Rating, Button } from '@mui/material'
-import { lineClampStyle, profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
+import { lineClampStyle, whiteIconButtonStyle } from '@/themes/styles';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
+import ReviewModal from './components/ReviewModal';
 
 const Contacts = () => {
     const theme = useTheme();
@@ -15,6 +16,7 @@ const Contacts = () => {
     const router = useRouter()
     const { getLabels } = languageStore()
     const Labels = getLabels('Menu') as any
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
     // Contact data - बाद में API से आएगा
     const contactData = {
@@ -23,20 +25,20 @@ const Contacts = () => {
         address: "Sukhlia Indore Madhya Pradesh"
     };
 
+    const handleReviewConfirm = (data: any) => {
+        console.log('Review data:', data);
+        setIsReviewModalOpen(false);
+    };
+
     return (
         <>
-            <Box sx={{ minHeight: '100vh', backgroundColor: theme.palette.background.default }}>
+            <Box sx={{ minHeight: '100vh' }}>
                 {/* Header */}
-                <Box sx={profileTopContainerStyle(mode)}>
+                <Box sx={topContainerStyle(mode)}>
                     <Container fixed>
-                        <Box display="flex" alignItems="center" gap='10px' justifyContent="flex-start">
-                            <IconButton onClick={() => router.push("/dashboard/profile")} >
-                                <KeyboardArrowLeftIcon sx={{ color: "#fff" }} />
-                            </IconButton>
-                            <Typography variant="body1" color="#fff" sx={{ ...lineClampStyle(1), fontWeight: 500 }}>
-                                {Labels?.lbl_contacts || 'Contacts'}
-                            </Typography>
-                        </Box>
+                        <IconButton onClick={() => router.push("/dashboard/profile")} >
+                            <KeyboardArrowLeftIcon sx={{ color: "#fff" }} />
+                        </IconButton>
                     </Container>
                 </Box>
 
@@ -62,6 +64,7 @@ const Contacts = () => {
                     <Button
                         variant="contained"
                         fullWidth
+                        onClick={() => setIsReviewModalOpen(true)}
                         sx={{
                             mt: 2,
                             mb: 3,
@@ -84,21 +87,14 @@ const Contacts = () => {
                 </Box>
 
                 {/* Content */}
-                <Container fixed sx={{
-                    pt: 3,
-                    backgroundColor: theme.palette.background.paper,
-                    position: 'relative',
-                    zIndex: 2,
-                    pb: 4,
-                    px: 2
-                }}>
+                <Container fixed>
                     {/* Contact Details Section */}
                     <Box sx={{ mb: 4 }}>
                         <Typography variant="h6" sx={{
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: theme.palette.text.primary,
+                            color: 'text.primary',
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
@@ -127,7 +123,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: theme.palette.text.primary,
+                                color: 'text.primary',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -157,7 +153,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: theme.palette.text.primary,
+                                color: 'text.primary',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -187,7 +183,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: theme.palette.text.primary,
+                                color: 'text.primary',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -199,7 +195,7 @@ const Contacts = () => {
                         <Box sx={{
                             width: '100%',
                             height: '1px',
-                            border: '1px dashed #8F8EA4',
+                            border: mode === 'light' ? '1px dashed #8F8EA4' : '1px dashed #4B5563',
                             mb: 3,
                             opacity: 1
                         }} />
@@ -211,7 +207,7 @@ const Contacts = () => {
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: theme.palette.text.primary,
+                            color: 'text.primary',
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
@@ -223,8 +219,8 @@ const Contacts = () => {
                             width: '382px',
                             height: '441.27px',
                             borderRadius: '20px',
-                            border: '1px solid #ADD8E6',
-                            backgroundColor: '#fff',
+                            border: mode === 'light' ? '1px solid #ADD8E6' : '1px solid #4B5563',
+                            backgroundColor: mode === 'light' ? '#fff' : 'background.paper',
                             overflow: 'hidden',
                             mb: 3
                         }}>
@@ -251,14 +247,14 @@ const Contacts = () => {
                                     alignItems: 'center'
                                 }}>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'normal',
                                         fontSize: '1em'
                                     }}>
                                         Name:
                                     </Typography>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'bold',
                                         fontSize: '1em'
                                     }}>
@@ -272,14 +268,14 @@ const Contacts = () => {
                                     alignItems: 'center'
                                 }}>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'normal',
                                         fontSize: '1em'
                                     }}>
                                         Specialty:
                                     </Typography>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'bold',
                                         fontSize: '1em'
                                     }}>
@@ -293,14 +289,14 @@ const Contacts = () => {
                                     alignItems: 'center'
                                 }}>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'normal',
                                         fontSize: '1em'
                                     }}>
                                         Language:
                                     </Typography>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'bold',
                                         fontSize: '1em'
                                     }}>
@@ -314,14 +310,14 @@ const Contacts = () => {
                                     alignItems: 'center'
                                 }}>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'normal',
                                         fontSize: '1em'
                                     }}>
                                         Price from:
                                     </Typography>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'bold',
                                         fontSize: '1em'
                                     }}>
@@ -335,14 +331,14 @@ const Contacts = () => {
                                     alignItems: 'center'
                                 }}>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'normal',
                                         fontSize: '1em'
                                     }}>
                                         Price to:
                                     </Typography>
                                     <Typography sx={{
-                                        color: '#333',
+                                        color: 'text.primary',
                                         fontWeight: 'bold',
                                         fontSize: '1em'
                                     }}>
@@ -354,8 +350,23 @@ const Contacts = () => {
                     </Box>
                 </Container>
             </Box>
+
+            {/* Review Modal */}
+            <ReviewModal
+                open={isReviewModalOpen}
+                onClose={() => setIsReviewModalOpen(false)}
+                onConfirm={handleReviewConfirm}
+            />
         </>
     )
 }
 
 export default Contacts
+
+const topContainerStyle = (mode: string) => {
+    return {
+        background: mode === "light" ? "linear-gradient(to right, #35558a, #3487c7)" : "linear-gradient(to right, #35558a, #3487c7)",
+        pt: '20px',
+        pb: '40px'
+    }
+}
