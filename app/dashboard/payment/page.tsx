@@ -17,6 +17,7 @@ import {
 import { lineClampStyle, profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
 import CardPayment from './components/Card';
@@ -129,7 +130,10 @@ const Payment = () => {
                     border: `1px solid ${theme.palette.primary.main}`,
                     overflow: 'hidden'
                 }}>
-                    <CardContent sx={{ p: 0 }}>
+                    <CardContent sx={{   p: 0,
+                        '&:last-child': {
+                            paddingBottom: 0
+                        }}}>
                         <RadioGroup
                             value={paymentOption}
                             onChange={handlePaymentOptionChange}
@@ -254,7 +258,7 @@ const Payment = () => {
                                         justifyContent: 'center',
                                         flexShrink: 0
                                     }}>
-                                        <TrendingUpIcon sx={{ color: '#fff', fontSize: 20 }} />
+                                        <NorthEastIcon sx={{ color: '#fff', fontSize: 20 }} />
                                     </Box>
 
                                     {/* Payment Details */}
