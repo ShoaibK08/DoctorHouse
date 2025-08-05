@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
 import ReviewModal from './components/ReviewModal';
 import { secondary } from '@/utils/colors';
+import { all } from 'axios';
 
 const Contacts = () => {
     const theme = useTheme();
@@ -71,22 +72,25 @@ const Contacts = () => {
                         sx={{
                             mt: 2,
                             mb: 3,
-                            background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
-                            color: '#FFFFFF',
+                            background: '#E7EAEE',
+                            color: '#494869',
                             fontFamily: 'Poppins',
                             py: 1.5,
-                            borderRadius: 3,
+                            borderRadius: 1,
                             fontWeight: 500,
                             fontSize: '14px',
                             textTransform: 'none',
                             maxWidth: '300px',
+                            transition: 'background 0.3s ease, color 0.3s ease', 
                             '&:hover': {
                                 background: 'linear-gradient(180deg, #3498DB 0%, #35558A 100%)',
+                                color: '#FFFFFF',
                             },
                         }}
                     >
                         {ReviewLabels?.btn_insert_review || 'Insert a review (max 500 chars)'}
                     </Button>
+
 
                 </Box>
 
@@ -98,7 +102,7 @@ const Contacts = () => {
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: 'text.primary',
+                            color: '#0E0D39',
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
@@ -110,7 +114,7 @@ const Contacts = () => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: 2,
-                         
+
                             py: 1
                         }}>
                             <Box sx={{
@@ -127,7 +131,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#0E0D39',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -140,7 +144,7 @@ const Contacts = () => {
                             display: 'flex',
                             alignItems: 'center',
                             gap: 2,
-                          
+
                             py: 1
                         }}>
                             <Box sx={{
@@ -157,7 +161,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#0E0D39',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -187,7 +191,7 @@ const Contacts = () => {
                             </Box>
                             <Typography variant="body1" sx={{
                                 fontWeight: 500,
-                                color: 'text.primary',
+                                color: '#0E0D39',
                                 fontSize: '16px',
                                 fontFamily: 'Poppins'
                             }}>
@@ -211,7 +215,7 @@ const Contacts = () => {
                             mb: 3,
                             fontFamily: 'Poppins',
                             fontWeight: 600,
-                            color: 'text.primary',
+                            color: '#0E0D39',
                             fontSize: '18px',
                             textAlign: 'left'
                         }}>
@@ -228,39 +232,43 @@ const Contacts = () => {
                             {/* Blue Header Card - Only top portion */}
                             <Box sx={{
                                 width: '100%',
-                                height: '120px',
+                                height: '140px',
                                 background: 'linear-gradient(135deg, #4A90E2 0%, #357ABD 100%)',
                                 borderRadius: '16px 16px 0 0',
                                 position: 'relative',
                                 boxShadow: '0 4px 16px rgba(74, 144, 226, 0.2)',
                             }}>
-                                {/* Business Card Image - Positioned in blue section */}
+                                {/* Business Card Image - Positioned in blue section with increased size */}
                                 <Box sx={{
                                     position: 'absolute',
-                                    top: '20px',
+                                    top: '15px',
                                     left: '50%',
                                     transform: 'translateX(-50%)',
-                                    width: '200px',
-                                    height: '120px',
+                                    width: '280px', // Increased from 200px
+                                    height: '160px', // Increased from 120px
                                     zIndex: 10,
                                     '& img': {
                                         width: '100%',
                                         height: '100%',
                                         objectFit: 'cover',
-                                        borderRadius: '8px'
+                                        borderRadius: '12px' // Slightly increased border radius
                                     }
                                 }}>
                                     <img src="/assets/businessCard.png" alt="Business Card" />
                                 </Box>
                             </Box>
 
-                            {/* White Details Card - Bottom portion */}
+                            {/* White Details Card - Bottom portion with rounded top corners */}
                             <Box sx={{
                                 backgroundColor: mode === 'light' ? '#FFFFFF' : 'background.paper',
-                                borderRadius: '16px 16px 16px 16px',
-                                padding: '80px 24px 24px 24px', // Extra top padding for card overlap
+                                borderRadius: '16px 16px 16px 16px', // All corners rounded
+                                padding: '100px 24px 24px 24px', // Extra top padding for card overlap
                                 border: mode === 'light' ? '1px solid #C6C6CE' : '1px solid #3B3B3B',
-                                marginTop: '-40px', // Overlap to show rounded corners on top
+                                marginTop: '-20px', // Reduced overlap to show rounded top corners
+                                position: 'relative',
+                                zIndex: 1,
+                                // Add a subtle shadow to make it look elevated
+                                boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)',
                             }}>
                                 {/* Details List */}
                                 <Box sx={{
@@ -275,7 +283,7 @@ const Contacts = () => {
                                         paddingBottom: '8px'
                                     }}>
                                         <Typography sx={{
-                                            color: 'text.secondary',
+                                            color: '#494869',
                                             fontWeight: 500,
                                             fontSize: '14px',
                                             fontFamily: 'Poppins'
@@ -283,7 +291,7 @@ const Contacts = () => {
                                             Name:
                                         </Typography>
                                         <Typography sx={{
-                                            color: 'text.primary',
+                                            color: '#0E0D39',
                                             fontWeight: 500,
                                             fontSize: '15px',
                                             fontFamily: 'Poppins'
@@ -299,7 +307,7 @@ const Contacts = () => {
                                         paddingBottom: '8px'
                                     }}>
                                         <Typography sx={{
-                                            color: 'text.secondary',
+                                            color: '#494869',
                                             fontWeight: 500,
                                             fontSize: '14px',
                                             fontFamily: 'Poppins'
@@ -307,7 +315,7 @@ const Contacts = () => {
                                             Specialty:
                                         </Typography>
                                         <Typography sx={{
-                                            color: 'text.primary',
+                                            color: '#0E0D39',
                                             fontWeight: 500,
                                             fontSize: '15px',
                                             fontFamily: 'Poppins'
@@ -323,7 +331,7 @@ const Contacts = () => {
                                         paddingBottom: '8px'
                                     }}>
                                         <Typography sx={{
-                                            color: 'text.secondary',
+                                            color: '#494869',
                                             fontWeight: 500,
                                             fontSize: '14px',
                                             fontFamily: 'Poppins'
@@ -331,7 +339,7 @@ const Contacts = () => {
                                             Language:
                                         </Typography>
                                         <Typography sx={{
-                                            color: 'text.primary',
+                                            color: '#0E0D39',
                                             fontWeight: 500,
                                             fontSize: '15px',
                                             fontFamily: 'Poppins'
@@ -347,7 +355,7 @@ const Contacts = () => {
                                         paddingBottom: '8px'
                                     }}>
                                         <Typography sx={{
-                                            color: 'text.secondary',
+                                            color: '#494869',
                                             fontWeight: 500,
                                             fontSize: '14px',
                                             fontFamily: 'Poppins'
@@ -355,7 +363,7 @@ const Contacts = () => {
                                             Price from:
                                         </Typography>
                                         <Typography sx={{
-                                            color: 'text.primary',
+                                            color: '#0E0D39',
                                             fontWeight: 500,
                                             fontSize: '15px',
                                             fontFamily: 'Poppins'
@@ -370,7 +378,7 @@ const Contacts = () => {
                                         alignItems: 'center'
                                     }}>
                                         <Typography sx={{
-                                            color: 'text.secondary',
+                                            color: '#494869',
                                             fontWeight: 500,
                                             fontSize: '14px',
                                             fontFamily: 'Poppins'
@@ -378,7 +386,7 @@ const Contacts = () => {
                                             Price to:
                                         </Typography>
                                         <Typography sx={{
-                                            color: 'text.primary',
+                                            color: '#0E0D39',
                                             fontWeight: 500,
                                             fontSize: '15px',
                                             fontFamily: 'Poppins'
