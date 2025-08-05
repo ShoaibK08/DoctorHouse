@@ -34,30 +34,44 @@ const LogoutPopup: React.FC<LogoutPopupProps> = ({ open, onClose }) => {
                 sx: {
                     borderRadius: '12px',
                     minWidth: '300px',
-                    maxWidth: '400px'
+                    maxWidth: '400px',
+                    backgroundColor:'#FFFFFF'
                 }
             }}
         >
             <DialogTitle sx={{ pb: 1 }}>
-                <Typography variant="h6" fontWeight="bold">
+                <Typography variant="h6" sx={{color:'#0E0D39',fontSize:'20px',fontFamily:'Poppins',fontWeight:600,textAlign:'center'}}>
                     Log Out
                 </Typography>
             </DialogTitle>
             <DialogContent sx={{ pb: 2 }}>
-                <Typography variant="body1" color="text.secondary">
+                <Typography variant="body1" sx={{color:'#494869',fontSize:'16px',fontFamily:'Poppins',fontWeight:400}}>
                     Are you sure you want to logout?
                 </Typography>
             </DialogContent>
-            <DialogActions sx={{ px: 3, pb: 3, gap: 1 }}>
+            <DialogActions sx={{ 
+                px: 3, 
+                pb: 3, 
+                gap: 1, 
+                display:'flex', 
+                justifyContent:'center',
+                alignItems:'center' 
+            }}>
                 <Button
                     onClick={onClose}
                     variant="outlined"
                     sx={{
-                        borderColor: '#3487c7',
-                        color: '#3487c7',
+                        borderColor: '#35558A',
+                        color: '#35558A',
+                        width: '100px',
+                        height: '40px',
+                        fontSize:'15px',
+                        fontWeight:500,
+                        fontFamily:'Poppins',
+                        backgroundColor:'#3498DB17',
                         '&:hover': {
-                            borderColor: '#3487c7',
-                            backgroundColor: 'rgba(52, 135, 199, 0.04)'
+                            borderColor: '#35558A',
+                            backgroundColor: '#3498DB17'
                         }
                     }}
                 >
@@ -67,9 +81,11 @@ const LogoutPopup: React.FC<LogoutPopupProps> = ({ open, onClose }) => {
                     onClick={handleLogout}
                     variant="contained"
                     sx={{
-                        backgroundColor: '#3487c7',
+                        background:'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
+                        width: '100px',
+                        height: '40px',
                         '&:hover': {
-                            backgroundColor: '#2a6ba8'
+                            background:'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
                         }
                     }}
                 >
@@ -80,4 +96,4 @@ const LogoutPopup: React.FC<LogoutPopupProps> = ({ open, onClose }) => {
     );
 };
 
-export default LogoutPopup; 
+export default LogoutPopup;

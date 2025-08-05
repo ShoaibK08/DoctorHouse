@@ -39,7 +39,7 @@ const ProfilePage = () => {
                             <img src="/icons/edit-new.svg" alt="" />
                         </IconButton>
                     </Box>
-                    <Typography variant="body1" color="primary" fontWeight={700} mt='10px' >
+                    <Typography variant="body1" color="text.primary" fontWeight={700} mt='10px' >
                         John Doe
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
