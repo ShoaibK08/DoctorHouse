@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import { whiteIconButtonStyle } from '@/themes/styles';
 import { ColorModeContext } from '@/context/theme.context';
 import { ToggleBtn } from '@/components/ThemeToggleBtn';
+import LogoutPopup from './components/LogoutPopup';
 
 const ProfilePage = () => {
     const theme = useTheme();
@@ -18,6 +19,9 @@ const ProfilePage = () => {
     const { getLabels } = languageStore()
     const Labels = getLabels('Menu') as any
     const router = useRouter()
+    
+    // State for logout popup
+    const [logoutPopupOpen, setLogoutPopupOpen] = React.useState(false);
     return (
         <>
             <Box sx={{ minHeight: '100vh' }}>
@@ -124,14 +128,26 @@ const ProfilePage = () => {
                         isLogout={true}
                     /> */}
                     <Box sx={{ borderTop: mode === 'light' ? "1px solid #E5E7EB" : "1px solid #3B3B3B" }}>
-                        <Link href="/">
-                            <Typography variant="body1" color="text.secondary" my='15px'>
+                        <Box 
+                            onClick={() => setLogoutPopupOpen(true)}
+                            sx={{ 
+                                cursor: 'pointer',
+                                py: '15px'
+                            }}
+                        >
+                            <Typography variant="body1" color="text.secondary">
                                 Logout
                             </Typography>
-                        </Link>
+                        </Box>
                     </Box>
                 </Container>
             </Box>
+            
+            {/* Logout Popup */}
+            <LogoutPopup 
+                open={logoutPopupOpen}
+                onClose={() => setLogoutPopupOpen(false)}
+            />
         </>
     )
 }
