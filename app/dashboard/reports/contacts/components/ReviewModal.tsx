@@ -34,8 +34,20 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
-      <DialogTitle sx={{ textAlign: 'center', fontWeight: 600, fontSize: 20, pb: 1 }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth={false}
+      fullWidth={false}
+      PaperProps={{
+        sx: {
+          width: '340px',
+          height: '760px',
+          borderRadius: 1,
+        },
+      }}
+    >
+      <DialogTitle sx={{ textAlign: 'center', fontWeight: 600, fontSize: 20, pb: 1, }}>
         Rating
         <IconButton
           aria-label="close"
@@ -74,11 +86,6 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
           sx={{ mb: 2 }}
           inputProps={{ maxLength: MAX_CHARS }}
         />
-        <Box display="flex" justifyContent="flex-end" mb={2}>
-          <Typography variant="caption" color="text.secondary">
-            {review.length} / {MAX_CHARS}
-          </Typography>
-        </Box>
         <Box>
           {questions.map((q, idx) => (
             <FormControlLabel
