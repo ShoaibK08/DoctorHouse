@@ -9,10 +9,12 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { LuEyeClosed } from "react-icons/lu";
 import { RxEyeOpen } from "react-icons/rx";
+import LoginPopup from './LoginPopup'
 
 const LoginForm = () => {
     const router = useRouter()
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showLoginPopup, setShowLoginPopup] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const { getLabels } = languageStore()
@@ -89,7 +91,7 @@ const LoginForm = () => {
                     <Typography variant="body2" color="#000" fontWeight={600}>OR</Typography>
                     <Box sx={{ height: '1px', width: "100%", background: "#C4C4CD" }} />
                 </Box>
-                <Button onClick={() => router.push("/dashboard")} variant="outlined" color="primary" size='large' fullWidth>
+                <Button onClick={() => setShowLoginPopup(true)} variant="outlined" color="primary" size='large' fullWidth>
                     Login via OTP
                 </Button>
                 <br />
@@ -97,6 +99,12 @@ const LoginForm = () => {
                     {LabelsLogin?.lbl_dont_account} <Link href="/auth/register" style={{ color: primary, fontWeight: '600' }}>{LabelsSingup?.lbl_signup}</Link>
                 </Typography>
             </Box>
+            
+            {/* Login Popup */}
+            <LoginPopup 
+                open={showLoginPopup} 
+                onClose={() => setShowLoginPopup(false)} 
+            />
         </>
     )
 }

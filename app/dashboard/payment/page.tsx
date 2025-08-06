@@ -21,6 +21,7 @@ import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
 import CardPayment from './components/Card';
+import Voucher from './components/Voucher';
 
 const Payment = () => {
     const theme = useTheme();
@@ -35,21 +36,18 @@ const Payment = () => {
     const [paymentOption, setPaymentOption] = useState('daily');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showCardPayment, setShowCardPayment] = useState(false);
+    const [showVoucher, setShowVoucher] = useState(false);
 
     const handlePaymentOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPaymentOption(event.target.value);
     };
 
     const handleSubmit = () => {
-        if (paymentOption === 'voucher') {
+        if (paymentOption === 'daily') {
             setShowCardPayment(true);
         } else {
-            setIsSubmitting(true);
-            // Simulate payment processing for daily option
-            setTimeout(() => {
-                setIsSubmitting(false);
-                // Handle payment logic here
-            }, 2000);
+            // Show Voucher component
+            setShowVoucher(true);
         }
     };
 
@@ -86,6 +84,11 @@ const Payment = () => {
     // If showing card payment, render the Card component
     if (showCardPayment) {
         return <CardPayment />;
+    }
+
+    // If showing voucher, render the Voucher component
+    if (showVoucher) {
+        return <Voucher />;
     }
 
     return (
