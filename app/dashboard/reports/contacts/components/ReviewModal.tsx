@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Box, TextField, Checkbox, FormControlLabel, Rating, IconButton, useTheme } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { secondary } from '@/utils/colors';
+import languageStore from '@/zustand/languageStore';
 
 // Style objects following the rules
 const dialogPaperStyles = (mode: string) => ({
@@ -186,13 +187,6 @@ interface ReviewModalProps {
   onConfirm: (data: any) => void;
 }
 
-const questions = [
-  'Did you get professional answer to your request?',
-  'Did the professional came to your house?',
-  'Was the professional on time?',
-  'Did the professional behave professionally?'
-];
-
 const MAX_CHARS = 200;
 
 const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) => {
@@ -201,6 +195,18 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
   const [rating, setRating] = useState<number | null>(3);
   const [review, setReview] = useState('Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Lorem ipsum is a dummy or placeholder text commonly used in graphic design.');
   const [checked, setChecked] = useState([true, true, false, false]);
+
+  // Get language labels
+  const { getLabels } = languageStore();
+  const Labels = getLabels('Review') as any;
+
+  // Questions array using language labels
+  const questions = [
+    Labels?.lbl_first || 'Did you get physician answer to your request?',
+    Labels?.lbl_second || 'Did the physician came to your house?',
+    Labels?.lbl_third || 'Was the physician on time?',
+    Labels?.lbl_fourth || 'Did the physician behave professionally?'
+  ];
 
   const handleCheck = (idx: number) => {
     setChecked(prev => prev.map((v, i) => (i === idx ? !v : v)));
@@ -225,7 +231,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
     >
       <DialogTitle sx={dialogTitleStyles(mode)}>
         <Typography sx={titleTextStyles(mode)}>
-        Rating
+          {Labels?.lbl_review || 'Rating'}
         </Typography>
         <IconButton
           aria-label="close"
@@ -255,7 +261,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
         <Box sx={reviewSectionStyles}>
           <Box sx={reviewHeaderStyles}>
             <Typography sx={reviewTitleStyles(mode)}>
-              Insert a Review
+              {Labels?.btn_insert_review?.replace(' (max 500 chars)', '') || 'Insert a Review'}
             </Typography>
             <Typography sx={reviewCharLimitStyles(mode)}>
               max {MAX_CHARS} chars
@@ -306,14 +312,14 @@ const ReviewModal: React.FC<ReviewModalProps> = ({ open, onClose, onConfirm }) =
           variant="outlined" 
           sx={cancelButtonStyles(mode)}
         >
-          Cancel
+          {Labels?.lbl_cancel || 'Cancel'}
         </Button>
         <Button 
           onClick={handleConfirm} 
           variant="contained" 
           sx={confirmButtonStyles}
         >
-          Confirm
+          {Labels?.lbl_confirm || 'Confirm'}
         </Button>
       </DialogActions>
     </Dialog>
