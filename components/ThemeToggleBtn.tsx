@@ -2,17 +2,18 @@ import { useTheme, } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
 import React from "react";
 import { Switch, } from '@mui/material';
-import { ColorModeContext } from '@/context/theme.context';
+import { useThemeMode } from '@/context/theme.context';
 
 export const ToggleBtn = () => {
     const theme = useTheme();
-    const colorMode = React.useContext(ColorModeContext);
+    const { toggleColorMode, mode } = useThemeMode();
+    
     return (
         <>
             <MaterialUISwitch
-                onClick={colorMode.toggleColorMode}
+                onClick={toggleColorMode}
                 sx={{ m: 1 }}
-                checked={theme.palette.mode === 'dark' ? true: false}
+                checked={mode === 'dark'}
             />
         </>
     )

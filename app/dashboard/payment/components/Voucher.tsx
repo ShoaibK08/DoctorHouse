@@ -71,11 +71,6 @@ const Voucher = () => {
                         <IconButton onClick={() => router.back()} sx={whiteIconButtonStyle(mode)}>
                             <KeyboardArrowLeftIcon />
                         </IconButton>
-                        <Box width="100%" textAlign="center">
-                            <Typography variant="body1" color="#fff" sx={lineClampStyle(1)}>
-                                <b>Voucher</b>
-                            </Typography>
-                        </Box>
                     </Box>
                 </Container>
             </Box>
@@ -96,8 +91,8 @@ const Voucher = () => {
                         <Box sx={{ mb: 3 }}>
                             <Typography variant="h6" sx={{
                                 fontWeight: 600,
-                                fontSize: '16px',
-                                color: theme.palette.text.primary,
+                                fontSize: '14px',
+                                color: '#0E0D39',
                                 mb: 2,
                                 fontFamily: 'Poppins'
                             }}>
@@ -128,8 +123,9 @@ const Voucher = () => {
                                     },
                                     '& .MuiOutlinedInput-input::placeholder': {
                                         fontSize: '14px',
+                                        fontFamily:'Poppins',
                                         fontWeight: 400,
-                                        color: theme.palette.text.secondary,
+                                        color: '#8F8EA4',
                                         opacity: 1
                                     }
                                 }}
@@ -138,9 +134,9 @@ const Voucher = () => {
 
                         {/* Separator */}
                         <Box display="flex" alignItems="center" gap='10px' my='20px'>
-                            <Box sx={{ height: '1px', width: "100%", background: "#C4C4CD", borderStyle: 'dotted' }} />
-                            <Typography variant="body2" color="#000" fontWeight={600}>Or</Typography>
-                            <Box sx={{ height: '1px', width: "100%", background: "#C4C4CD", borderStyle: 'dotted' }} />
+                            <Box sx={{ height: '1px', width: "100%", background: "#8F8EA4", borderStyle: 'dashed' }} />
+                            <Typography variant="body2" color="#0E0D39" fontWeight={500} sx={{fontFamily:'Poppins', fontSize:'15px'}}>Or</Typography>
+                            <Box sx={{ height: '1px', width: "100%", background: "#8F8EA4", borderStyle: 'dashed' }} />
                         </Box>
 
                         {/* QR Code Scanner */}
@@ -154,13 +150,11 @@ const Voucher = () => {
                             <Box sx={{
                                 width: 200,
                                 height: 200,
-                                border: '2px solid #1976d2',
                                 borderRadius: 2,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 position: 'relative',
-                                backgroundColor: '#f5f5f5'
                             }}>
                                 {/* Corner brackets */}
                                 <Box sx={{
@@ -169,9 +163,8 @@ const Voucher = () => {
                                     left: -2,
                                     width: 20,
                                     height: 20,
-                                    borderTop: '3px solid #1976d2',
-                                    borderLeft: '3px solid #1976d2',
-                                    borderTopLeftRadius: 8
+                                    borderTop: '3px solid #3498DB',
+                                    borderLeft: '3px solid #3498DB',
                                 }} />
                                 <Box sx={{
                                     position: 'absolute',
@@ -179,9 +172,8 @@ const Voucher = () => {
                                     right: -2,
                                     width: 20,
                                     height: 20,
-                                    borderTop: '3px solid #1976d2',
-                                    borderRight: '3px solid #1976d2',
-                                    borderTopRightRadius: 8
+                                    borderTop: '3px solid #3498DB',
+                                    borderRight: '3px solid #3498DB',
                                 }} />
                                 <Box sx={{
                                     position: 'absolute',
@@ -189,9 +181,8 @@ const Voucher = () => {
                                     left: -2,
                                     width: 20,
                                     height: 20,
-                                    borderBottom: '3px solid #1976d2',
-                                    borderLeft: '3px solid #1976d2',
-                                    borderBottomLeftRadius: 8
+                                    borderBottom: '3px solid #3498DB',
+                                    borderLeft: '3px solid #3498DB',
                                 }} />
                                 <Box sx={{
                                     position: 'absolute',
@@ -199,24 +190,11 @@ const Voucher = () => {
                                     right: -2,
                                     width: 20,
                                     height: 20,
-                                    borderBottom: '3px solid #1976d2',
-                                    borderRight: '3px solid #1976d2',
-                                    borderBottomRightRadius: 8
+                                    borderBottom: '3px solid #3498DB',
+                                    borderRight: '3px solid #3498DB',
                                 }} />
-                                
-                                <QrCodeIcon sx={{ 
-                                    fontSize: 80, 
-                                    color: '#1976d2',
-                                    opacity: 0.7
-                                }} />
+                                <img src="/assets/QR.png"/>
                             </Box>
-                            <Typography variant="body2" sx={{
-                                mt: 2,
-                                color: theme.palette.text.secondary,
-                                textAlign: 'center'
-                            }}>
-                                Scan QR Code
-                            </Typography>
                         </Box>
 
                         {/* Pay by Voucher Button */}
@@ -342,4 +320,4 @@ const Voucher = () => {
     )
 }
 
-export default Voucher 
+export default Voucher

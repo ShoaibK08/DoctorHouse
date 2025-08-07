@@ -52,7 +52,26 @@ const SearchDoctor = () => {
                         </MenuItem>
                         {ALL_LANGUAGES.map((item) => (
                             <MenuItem key={item.LanguageID} value={item.LanguageID}>
-                                {item.LanguageName}
+                                <Box
+                                    component="li"
+                                    sx={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        gap: 1,
+                                        '& > img': { mr: 1, flexShrink: 0 }
+                                    }}
+                                >
+                                    {item.CountryCode && (
+                                        <img
+                                            loading="lazy"
+                                            width="20"
+                                            srcSet={`https://flagcdn.com/w40/${item.CountryCode.toLowerCase()}.png 2x`}
+                                            src={`https://flagcdn.com/w20/${item.CountryCode.toLowerCase()}.png`}
+                                            alt=""
+                                        />
+                                    )}
+                                    {item.LanguageName}
+                                </Box>
                             </MenuItem>
                         ))}
                     </Select>

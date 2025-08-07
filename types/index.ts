@@ -10,6 +10,7 @@ export interface Language {
   LanguageID: number;
   LanguageName: string;
   ShortName: string;
+  CountryCode?: string;
   AppHelps: any[];
   Contacts: any[];
   FormLabels: FormLabel[];

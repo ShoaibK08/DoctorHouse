@@ -6,23 +6,35 @@ import { Toaster } from 'react-hot-toast';
 import GlobalLoader from '@/components/globalLoader';
 import { Box, createTheme, ThemeProvider, } from '@mui/material';
 import { defaultThemeSetting, themeComponents } from '@/themes/theme';
-import { ColorModeContext } from '@/context/theme.context';
+import { ColorModeContext, useThemePersistence } from '@/context/theme.context';
 import { secondary } from '@/utils/colors'; 
 
 const StoreProvider = ({ children }: Readonly<{ children: React.ReactNode; }>) => {
-    const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+    const { mode, toggleTheme, mounted } = useThemePersistence();
+
     const colorMode = React.useMemo(
         () => ({
-            toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'))
-            }
+            toggleColorMode: toggleTheme,
+            mode
         }),
-        [],
+        [mode, toggleTheme],
     );
+
     const theme = React.useMemo(() => createTheme(defaultThemeSetting(mode)), [mode],);
     const themeOverides = {
         ...theme,
         components: themeComponents(mode).components
+    }
+
+    // Prevent hydration mismatch
+    if (!mounted) {
+        return (
+            <Provider store={apiStore}>
+                <Box sx={{ background: "#fff" }}>
+                    {children}
+                </Box>
+            </Provider>
+        );
     }
 
     return (
