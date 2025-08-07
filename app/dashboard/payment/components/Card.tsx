@@ -16,6 +16,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
+import { secondary } from '@/utils/colors';
 
 const CardPayment = () => {
     const theme = useTheme();
@@ -71,7 +72,7 @@ const CardPayment = () => {
     return (
         <Box sx={{
             minHeight: '100vh',
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: mode === 'dark' ? secondary : theme.palette.background.default,
             position: 'relative',
             zIndex: 1,
             width: '100%',

@@ -20,6 +20,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import NorthEastIcon from '@mui/icons-material/NorthEast';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
+import { secondary } from '@/utils/colors';
 import CardPayment from './components/Card';
 import Voucher from './components/Voucher';
 
@@ -94,7 +95,7 @@ const Payment = () => {
     return (
         <Box sx={{
             minHeight: '100vh',
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: mode === 'dark' ? secondary : theme.palette.background.default,
             position: 'relative',
             zIndex: 1,
             width: '100%',

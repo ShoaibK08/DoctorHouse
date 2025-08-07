@@ -15,23 +15,178 @@ import {
     Card,
     CardContent
 } from '@mui/material'
-import { lineClampStyle, profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
+import { profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
+import { secondary } from '@/utils/colors';
 
-const Voucher = () => {
+// CSS objects for styling
+const rootStyles = (theme: any, mode: string) => ({
+    minHeight: '100vh',
+    backgroundColor: mode === 'dark' ? secondary : theme.palette.background.default,
+    position: 'relative',
+    zIndex: 1,
+    width: '100%',
+    maxWidth: '100%'
+});
+
+const contentContainerStyles = (theme: any, mode: string) => ({
+    pt: 3,
+    backgroundColor: theme.palette.background.paper,
+    position: 'relative',
+    zIndex: 2,
+    pb: 4,
+    px: 2,
+    borderRadius: 3,
+    boxShadow: mode === 'dark' ? '0 2px 8px #181A20' : '0 2px 8px #e3e3e3',
+});
+
+const voucherInputBoxStyles = {
+    mb: 5
+};
+
+const voucherLabelStyles = (theme: any) => ({
+    fontWeight: 600,
+    fontSize: '14px',
+    color: theme.palette.text.primary,
+    mb: 2,
+    fontFamily: 'Poppins'
+});
+
+const voucherInputStyles = (theme: any) => ({
+    '& .MuiOutlinedInput-root': {
+        borderRadius: 2,
+        fontFamily: 'Poppins',
+        backgroundColor: theme.palette.background.paper,
+        '& fieldset': {
+            borderColor: theme.palette.divider,
+        },
+        '&:hover fieldset': {
+            borderColor: theme.palette.primary.main,
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: theme.palette.primary.main,
+        },
+    },
+    '& .MuiOutlinedInput-input': {
+        color: theme.palette.text.primary,
+    },
+    '& .MuiOutlinedInput-input::placeholder': {
+        fontSize: '14px',
+        fontFamily:'Poppins',
+        fontWeight: 400,
+        color: theme.palette.mode === 'dark' ? '#a0aec0' : '#8F8EA4',
+        opacity: 1
+    }
+});
+
+const separatorRowStyles = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '15px',
+    my: '25px',
+    mb: 8
+};
+
+const separatorLineStyles = (theme: any) => ({
+    flex: 1,
+    height: '0px',
+    borderTop: `1px dashed ${theme.palette.divider}`,
+    background: 'transparent',
+});
+
+const separatorTextStyles = (theme: any) => ({
+    color: theme.palette.text.primary,
+    fontWeight: 500,
+    fontFamily: 'Poppins',
+    fontSize: '15px',
+    whiteSpace: 'nowrap'
+});
+
+const qrSectionStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    mb: 8,
+    position: 'relative'
+};
+
+const qrBoxStyles = (theme: any, mode: string) => ({
+    width: 150,
+    height: 150,
+    borderRadius: 2,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    background: mode === 'dark' ? '#23242a' : '#f5f7fa',
+    border: `1.5px solid ${theme.palette.divider}`
+});
+
+const qrCornerStyles = (theme: any, pos: 'tl'|'tr'|'bl'|'br') => {
+    const base = {
+        position: 'absolute' as const,
+        width: 20,
+        height: 20,
+    };
+    const border = `3px solid ${theme.palette.primary.main}`;
+    switch (pos) {
+        case 'tl': return { ...base, top: -2, left: -2, borderTop: border, borderLeft: border };
+        case 'tr': return { ...base, top: -2, right: -2, borderTop: border, borderRight: border };
+        case 'bl': return { ...base, bottom: -2, left: -2, borderBottom: border, borderLeft: border };
+        case 'br': return { ...base, bottom: -2, right: -2, borderBottom: border, borderRight: border };
+    }
+};
+
+const cardStyles = (theme: any) => ({
+    mb: 3,
+    borderRadius: 3,
+    border: `1px solid ${theme.palette.primary.main}`,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.palette.mode === 'dark' ? '0 2px 8px #181A20' : '0 2px 8px #e3e3e3',
+});
+
+const paymentOptionLabelStyles = (theme: any) => ({
+    fontWeight: 600,
+    fontSize: '16px',
+    color: theme.palette.text.primary,
+    fontFamily: 'Poppins',
+});
+
+const radioStyles = (theme: any) => ({
+    color: theme.palette.primary.main,
+    '&.Mui-checked': { color: theme.palette.primary.main }
+});
+
+const submitButtonStyles = (theme: any) => ({
+    background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
+    color: '#FFFFFF',
+    fontFamily: 'Poppins',
+    py: 1.8,
+    borderRadius: 3,
+    fontWeight: 500,
+    fontSize: '16px',
+    textTransform: 'none',
+    boxShadow: 'none',
+    '&:hover': {
+        background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
+        boxShadow: 'none'
+    }
+});
+
+const Voucher: React.FC = () => {
     const theme = useTheme();
     const mode = theme.palette.mode;
-    const router = useRouter()
-    const { getLabels } = languageStore()
-    const Labels = getLabels('Menu') as any
-    const PaymentsLabels = getLabels('Payments') as any
-    const CommonLabels = getLabels('Common') as any
+    const router = useRouter();
+    const { getLabels } = languageStore();
+    const Labels = getLabels('Menu') as any;
+    const PaymentsLabels = getLabels('Payments') as any;
+    const CommonLabels = getLabels('Common') as any;
 
     const [voucherCode, setVoucherCode] = useState('');
-    const [paymentMethod, setPaymentMethod] = useState('daily'); // Changed default to 'daily'
+    const [paymentMethod, setPaymentMethod] = useState('daily');
     const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
     const handleVoucherSubmit = () => {
@@ -39,31 +194,19 @@ const Voucher = () => {
     };
 
     const handlePaymentMethodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        console.log('Radio button selected:', value);
-        setPaymentMethod(value);
+        setPaymentMethod(event.target.value);
     };
 
     const handleSubmit = () => {
-        console.log('Submit clicked, payment method:', paymentMethod);
         if (paymentMethod === 'daily') {
-            console.log('Navigating to payment page...');
             router.push('/dashboard/payment');
         } else {
             // Handle voucher payment
-            console.log('Processing voucher payment...');
         }
     };
 
     return (
-        <Box sx={{
-            minHeight: '100vh',
-            backgroundColor: theme.palette.background.default,
-            position: 'relative',
-            zIndex: 1,
-            width: '100%',
-            maxWidth: '100%'
-        }}>
+        <Box sx={rootStyles(theme, mode)}>
             {/* Header */}
             <Box sx={profileTopContainerStyle(mode)}>
                 <Container fixed>
@@ -76,26 +219,13 @@ const Voucher = () => {
             </Box>
 
             {/* Content */}
-            <Container fixed sx={{
-                pt: 3,
-                backgroundColor: theme.palette.background.paper,
-                position: 'relative',
-                zIndex: 2,
-                pb: 4,
-                px: 2
-            }}>
+            <Container fixed sx={contentContainerStyles(theme, mode)}>
                 {!showPaymentOptions ? (
                     // Voucher Input and QR Scanner Screen
                     <>
                         {/* Voucher Input */}
-                        <Box sx={{ mb: 3 }}>
-                            <Typography variant="h6" sx={{
-                                fontWeight: 600,
-                                fontSize: '14px',
-                                color: '#0E0D39',
-                                mb: 2,
-                                fontFamily: 'Poppins'
-                            }}>
+                        <Box sx={voucherInputBoxStyles}>
+                            <Typography variant="h6" sx={voucherLabelStyles(theme)}>
                                 Voucher
                             </Typography>
                             <TextField
@@ -103,96 +233,24 @@ const Voucher = () => {
                                 placeholder="Enter"
                                 value={voucherCode}
                                 onChange={(e) => setVoucherCode(e.target.value)}
-                                sx={{
-                                    '& .MuiOutlinedInput-root': {
-                                        borderRadius: 2,
-                                        fontFamily: 'Poppins',
-                                        backgroundColor: theme.palette.background.paper,
-                                        '& fieldset': {
-                                            borderColor: theme.palette.divider,
-                                        },
-                                        '&:hover fieldset': {
-                                            borderColor: theme.palette.primary.main,
-                                        },
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: theme.palette.primary.main,
-                                        },
-                                    },
-                                    '& .MuiOutlinedInput-input': {
-                                        color: theme.palette.text.primary,
-                                    },
-                                    '& .MuiOutlinedInput-input::placeholder': {
-                                        fontSize: '14px',
-                                        fontFamily:'Poppins',
-                                        fontWeight: 400,
-                                        color: '#8F8EA4',
-                                        opacity: 1
-                                    }
-                                }}
+                                sx={voucherInputStyles(theme)}
                             />
                         </Box>
 
                         {/* Separator */}
-                        <Box display="flex" alignItems="center" gap='10px' my='20px'>
-                            <Box sx={{ height: '1px', width: "100%", background: "#8F8EA4", borderStyle: 'dashed' }} />
-                            <Typography variant="body2" color="#0E0D39" fontWeight={500} sx={{fontFamily:'Poppins', fontSize:'15px'}}>Or</Typography>
-                            <Box sx={{ height: '1px', width: "100%", background: "#8F8EA4", borderStyle: 'dashed' }} />
+                        <Box sx={separatorRowStyles}>
+                            <Box sx={separatorLineStyles(theme)} />
+                            <Typography variant="body2" sx={separatorTextStyles(theme)}>Or</Typography>
+                            <Box sx={separatorLineStyles(theme)} />
                         </Box>
 
                         {/* QR Code Scanner */}
-                        <Box sx={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            alignItems: 'center', 
-                            mb: 4,
-                            position: 'relative'
-                        }}>
-                            <Box sx={{
-                                width: 200,
-                                height: 200,
-                                borderRadius: 2,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                position: 'relative',
-                            }}>
-                                {/* Corner brackets */}
-                                <Box sx={{
-                                    position: 'absolute',
-                                    top: -2,
-                                    left: -2,
-                                    width: 20,
-                                    height: 20,
-                                    borderTop: '3px solid #3498DB',
-                                    borderLeft: '3px solid #3498DB',
-                                }} />
-                                <Box sx={{
-                                    position: 'absolute',
-                                    top: -2,
-                                    right: -2,
-                                    width: 20,
-                                    height: 20,
-                                    borderTop: '3px solid #3498DB',
-                                    borderRight: '3px solid #3498DB',
-                                }} />
-                                <Box sx={{
-                                    position: 'absolute',
-                                    bottom: -2,
-                                    left: -2,
-                                    width: 20,
-                                    height: 20,
-                                    borderBottom: '3px solid #3498DB',
-                                    borderLeft: '3px solid #3498DB',
-                                }} />
-                                <Box sx={{
-                                    position: 'absolute',
-                                    bottom: -2,
-                                    right: -2,
-                                    width: 20,
-                                    height: 20,
-                                    borderBottom: '3px solid #3498DB',
-                                    borderRight: '3px solid #3498DB',
-                                }} />
+                        <Box sx={qrSectionStyles}>
+                            <Box sx={qrBoxStyles(theme, mode)}>
+                                <Box sx={qrCornerStyles(theme, 'tl')} />
+                                <Box sx={qrCornerStyles(theme, 'tr')} />
+                                <Box sx={qrCornerStyles(theme, 'bl')} />
+                                <Box sx={qrCornerStyles(theme, 'br')} />
                                 <img src="/assets/QR.png"/>
                             </Box>
                         </Box>
@@ -202,19 +260,7 @@ const Voucher = () => {
                             variant="contained"
                             fullWidth
                             onClick={handleVoucherSubmit}
-                            sx={{
-                                background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
-                                color: '#FFFFFF',
-                                fontFamily: 'Poppins',
-                                py: 1.8,
-                                borderRadius: 3,
-                                fontWeight: 500,
-                                fontSize: '16px',
-                                textTransform: 'none',
-                                '&:hover': {
-                                     background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
-                                },
-                            }}
+                            sx={submitButtonStyles(theme)}
                         >
                             Pay by voucher
                         </Button>
@@ -222,12 +268,7 @@ const Voucher = () => {
                 ) : (
                     // Payment Options Screen
                     <>
-                        <Card sx={{
-                            mb: 3,
-                            borderRadius: 3,
-                            border: '1px solid #1976d2',
-                            backgroundColor: '#FFFFFF'
-                        }}>
+                        <Card sx={cardStyles(theme)}>
                             <CardContent sx={{ p: 3 }}>
                                 <FormControl component="fieldset" sx={{ width: '100%' }}>
                                     <RadioGroup
@@ -236,13 +277,9 @@ const Voucher = () => {
                                     >
                                         <FormControlLabel
                                             value="daily"
-                                            control={<Radio sx={{ color: '#1976d2', '&.Mui-checked': { color: '#1976d2' } }} />}
+                                            control={<Radio sx={radioStyles(theme)} />}
                                             label={
-                                                <Typography sx={{
-                                                    fontWeight: 600,
-                                                    fontSize: '16px',
-                                                    color: '#000'
-                                                }}>
+                                                <Typography sx={paymentOptionLabelStyles(theme)}>
                                                     $1.99 for a day
                                                 </Typography>
                                             }
@@ -255,24 +292,18 @@ const Voucher = () => {
                                                 }
                                             }}
                                         />
-                                        
                                         <Box sx={{ 
                                             height: '1px', 
                                             width: "100%", 
-                                            background: "#C4C4CD", 
+                                            background: theme.palette.divider, 
                                             borderStyle: 'dotted',
                                             my: 1
                                         }} />
-                                        
                                         <FormControlLabel
                                             value="voucher"
-                                            control={<Radio sx={{ color: '#1976d2', '&.Mui-checked': { color: '#1976d2' } }} />}
+                                            control={<Radio sx={radioStyles(theme)} />}
                                             label={
-                                                <Typography sx={{
-                                                    fontWeight: 600,
-                                                    fontSize: '16px',
-                                                    color: '#000'
-                                                }}>
+                                                <Typography sx={paymentOptionLabelStyles(theme)}>
                                                     Pay by voucher
                                                 </Typography>
                                             }
@@ -289,27 +320,12 @@ const Voucher = () => {
                                 </FormControl>
                             </CardContent>
                         </Card>
-
-
-
                         {/* Submit Button */}
                         <Button
                             variant="contained"
                             fullWidth
                             onClick={handleSubmit}
-                            sx={{
-                                background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
-                                color: '#FFFFFF',
-                                fontFamily: 'Poppins',
-                                py: 1.8,
-                                borderRadius: 3,
-                                fontWeight: 500,
-                                fontSize: '16px',
-                                textTransform: 'none',
-                                '&:hover': {
-                                     background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
-                                },
-                            }}
+                            sx={submitButtonStyles(theme)}
                         >
                             Submit
                         </Button>
