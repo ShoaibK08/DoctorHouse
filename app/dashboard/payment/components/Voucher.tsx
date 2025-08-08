@@ -15,32 +15,32 @@ import {
     Card,
     CardContent
 } from '@mui/material'
-import { profileTopContainerStyle, whiteIconButtonStyle } from '@/themes/styles';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import { useRouter } from 'next/navigation';
 import languageStore from '@/zustand/languageStore';
 import { secondary } from '@/utils/colors';
 
-// CSS objects for styling
-const rootStyles = (theme: any, mode: string) => ({
+// Profile screen jaisi consistent top container styling
+const topContainerStyle = (mode: string) => {
+    return {
+        background: mode === "light" ? "linear-gradient(to right, #35558a, #3487c7)" : secondary,
+        pt: '20px',
+        pb: '40px'
+    }
+}
+
+// CSS objects for styling - Profile screen ke consistent saath
+const rootStyles = (mode: string) => ({
     minHeight: '100vh',
-    backgroundColor: mode === 'dark' ? secondary : theme.palette.background.default,
-    position: 'relative',
-    zIndex: 1,
-    width: '100%',
-    maxWidth: '100%'
+    // Profile screen jaisi background - simple aur consistent
 });
 
 const contentContainerStyles = (theme: any, mode: string) => ({
     pt: 3,
-    backgroundColor: theme.palette.background.paper,
-    position: 'relative',
-    zIndex: 2,
     pb: 4,
     px: 2,
-    borderRadius: 3,
-    boxShadow: mode === 'dark' ? '0 2px 8px #181A20' : '0 2px 8px #e3e3e3',
+    // Profile screen jaisi simple styling without extra shadows
 });
 
 const voucherInputBoxStyles = {
@@ -77,7 +77,7 @@ const voucherInputStyles = (theme: any) => ({
         fontSize: '14px',
         fontFamily:'Poppins',
         fontWeight: 400,
-        color: theme.palette.mode === 'dark' ? '#a0aec0' : '#8F8EA4',
+        color: theme.palette.text.secondary, // theme consistent colors
         opacity: 1
     }
 });
@@ -113,7 +113,7 @@ const qrSectionStyles = {
     position: 'relative'
 };
 
-const qrBoxStyles = (theme: any, mode: string) => ({
+const qrBoxStyles = (theme: any) => ({
     width: 150,
     height: 150,
     borderRadius: 2,
@@ -121,7 +121,7 @@ const qrBoxStyles = (theme: any, mode: string) => ({
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    background: mode === 'dark' ? '#23242a' : '#f5f7fa',
+    backgroundColor: theme.palette.background.paper, // theme consistent background
     border: `1.5px solid ${theme.palette.divider}`
 });
 
@@ -145,7 +145,8 @@ const cardStyles = (theme: any) => ({
     borderRadius: 3,
     border: `1px solid ${theme.palette.primary.main}`,
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.palette.mode === 'dark' ? '0 2px 8px #181A20' : '0 2px 8px #e3e3e3',
+    // Profile screen jaisi simple shadow styling
+    boxShadow: theme.shadows[1],
 });
 
 const paymentOptionLabelStyles = (theme: any) => ({
@@ -160,6 +161,7 @@ const radioStyles = (theme: any) => ({
     '&.Mui-checked': { color: theme.palette.primary.main }
 });
 
+// Profile screen jaisi consistent button styling
 const submitButtonStyles = (theme: any) => ({
     background: 'linear-gradient(122deg, #35558A 4.67%, #3498DB 85.99%)',
     color: '#FFFFFF',
@@ -206,19 +208,17 @@ const Voucher: React.FC = () => {
     };
 
     return (
-        <Box sx={rootStyles(theme, mode)}>
-            {/* Header */}
-            <Box sx={profileTopContainerStyle(mode)}>
+        <Box sx={rootStyles(mode)}>
+            {/* Header - Profile screen jaisi exact styling */}
+            <Box sx={topContainerStyle(mode)}>
                 <Container fixed>
-                    <Box display="flex" alignItems="center" gap='20px' justifyContent="space-between">
-                        <IconButton onClick={() => router.back()} sx={whiteIconButtonStyle(mode)}>
-                            <KeyboardArrowLeftIcon />
-                        </IconButton>
-                    </Box>
+                    <IconButton onClick={() => router.back()}>
+                        <KeyboardArrowLeftIcon sx={{ color: "#fff" }} />
+                    </IconButton>
                 </Container>
             </Box>
 
-            {/* Content */}
+            {/* Content - Profile screen jaisi consistent spacing */}
             <Container fixed sx={contentContainerStyles(theme, mode)}>
                 {!showPaymentOptions ? (
                     // Voucher Input and QR Scanner Screen
@@ -246,7 +246,7 @@ const Voucher: React.FC = () => {
 
                         {/* QR Code Scanner */}
                         <Box sx={qrSectionStyles}>
-                            <Box sx={qrBoxStyles(theme, mode)}>
+                            <Box sx={qrBoxStyles(theme)}>
                                 <Box sx={qrCornerStyles(theme, 'tl')} />
                                 <Box sx={qrCornerStyles(theme, 'tr')} />
                                 <Box sx={qrCornerStyles(theme, 'bl')} />
